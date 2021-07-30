@@ -19,7 +19,7 @@ interface ListInternal extends List {
   pos: number;
 }
 
-export default class Trello {
+export default class TrelloClient {
   private readonly appKey: string;
   private readonly authToken: string;
   private readonly verbose: boolean;

@@ -1,4 +1,4 @@
-import Trello, { List } from "./service/Trello";
+import TrelloClient, { List } from "./service/Trello";
 import date from "date-and-time";
 
 const currentDoneListName = "Done - this week";
@@ -68,7 +68,7 @@ const confirmListPlacementInternal = async (
 };
 
 export const maybeConsolidateLists = async (
-  trelloClient: Trello,
+  trelloClient: TrelloClient,
   selectedBoardId: string
 ): Promise<Array<string>> => {
   const allLists = await trelloClient.getLists(selectedBoardId);
@@ -116,7 +116,7 @@ export type MoveDoneListsResult = {
 };
 
 export const moveDoneLists = async (
-  trelloClient: Trello,
+  trelloClient: TrelloClient,
   selectedBoardId: string,
   confirmListPlacement: (
     beforeContext: Array<List>,

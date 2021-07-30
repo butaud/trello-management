@@ -1,7 +1,7 @@
 import cliSelect from "cli-select";
 import prompts from "prompts";
 
-import Trello, { Board, List } from "./service/Trello";
+import TrelloClient, { Board, List } from "./service/Trello";
 import { DbKey, fetchOrCacheInDb } from "./store/db";
 import { moveDoneLists, maybeConsolidateLists } from "./logic";
 
@@ -18,7 +18,7 @@ const getAuthToken = (): Promise<string> =>
       ).token
   );
 
-const getSelectedBoardId = (trelloClient: Trello): Promise<string> =>
+const getSelectedBoardId = (trelloClient: TrelloClient): Promise<string> =>
   fetchOrCacheInDb(DbKey.SAVED_BOARD_ID, async () => {
     const boards = await trelloClient.getBoards();
     const selection = await cliSelect<Board>({
@@ -62,7 +62,7 @@ const chooseListPlacement = async (
 (async () => {
   const authToken = await getAuthToken();
 
-  const trelloClient = new Trello(authToken);
+  const trelloClient = new TrelloClient(authToken);
 
   const selectedBoardId = await getSelectedBoardId(trelloClient);
 
